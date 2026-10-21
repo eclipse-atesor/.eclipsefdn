@@ -2,7 +2,8 @@ local orgs = import 'vendor/otterdog-defaults/otterdog-defaults.libsonnet';
 
 orgs.newOrg('openhw.atesor', 'eclipse-atesor') {
   settings+: {
-    description: "",
+    blog: "https://eclipse.dev/atesor/",
+    description: "Agentic framework that ports software to RISC-V. Native riscv64 builds, automatic repair, verified binaries and a replayable recipe for each package.",
     members_can_change_project_visibility: false,
     name: "Eclipse Atesor",
     packages_containers_internal: false,
@@ -19,20 +20,28 @@ orgs.newOrg('openhw.atesor', 'eclipse-atesor') {
       allow_update_branch: false,
       delete_branch_on_merge: false,
       dependabot_alerts_enabled: false,
-      description: "Multi-stage Agent for Autonomous RISC-V SW Porting. You can download packages here ↓",
-      homepage: "https://akifejaz.github.io/adash",
+      description: "Agentic framework that ports software to RISC-V. Native riscv64 builds, automatic repair, verified binaries and a replayable recipe for each package.",
+      homepage: "https://eclipse.dev/atesor/docs/",
       secret_scanning: "disabled",
       secret_scanning_push_protection: "disabled",
       topics+: [
         "agentic-ai",
-        "multi-agent-systems",
-        "port-sw-to-riscv",
+        "riscv-porting",
+        "langgraph",
+        "llm-agents",
         "porting",
         "risc-v",
-        "risc-v-porting"
+        "riscv64",
+        "sw-enablement",
       ],
       web_commit_signoff_required: false,
       secrets: [
+        orgs.newRepoSecret('ANTHROPIC_API_KEY') {
+          value: "********",
+        },
+        orgs.newRepoSecret('ANTHROPIC_ORG') {
+          value: "********",
+        },
         orgs.newRepoSecret('GOOGLE_API_KEY') {
           value: "********",
         },
@@ -68,7 +77,8 @@ orgs.newOrg('openhw.atesor', 'eclipse-atesor') {
       allow_merge_commit: true,
       allow_update_branch: false,
       delete_branch_on_merge: false,
-      description: "Project website",
+      description: "Source of eclipse.dev/atesor: website, documentation and package index",
+      homepage: "https://eclipse.dev/atesor/",
       secret_scanning: "disabled",
       secret_scanning_push_protection: "disabled",
       web_commit_signoff_required: false,
@@ -80,6 +90,8 @@ orgs.newOrg('openhw.atesor', 'eclipse-atesor') {
 } + {
   # snippet added due to 'https://github.com/eclipsefdn/otterdog-configs/blob/main/blueprints/add-dot-github-repo.yml'
   _repositories+:: [
-    orgs.newRepo('.github')
+    orgs.newRepo('.github') {
+      description: "Organization profile and security policy",
+    },
   ],
 }
